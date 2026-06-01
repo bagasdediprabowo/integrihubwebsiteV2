@@ -269,12 +269,13 @@
                                 </div>
                             </div>
 
-                            <div class="bg-[#F0F2F5] p-2 flex items-center gap-2 pb-6">
-                                <div class="bg-white flex-1 rounded-full h-10 px-4 flex items-center text-slate-400 text-sm">Ketik pesan...</div>
-                                <div class="w-10 h-10 rounded-full bg-wa flex items-center justify-center text-white shadow-sm">
-                                    <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
-                                </div>
-                            </div>
+                           <!-- Input Area WA (Sudah Interaktif) -->
+<div class="bg-[#F0F2F5] p-2 flex items-center gap-2 pb-6">
+    <input type="text" id="demo-input" onkeypress="handleDemoKeyPress(event)" placeholder="Ketik pesan..." class="bg-white flex-1 rounded-full h-10 px-4 text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#25D366] placeholder-slate-400 shadow-inner">
+    <button onclick="sendDemoMessage()" class="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center text-white shadow-md hover:bg-[#20bd5a] transition-colors cursor-pointer flex-shrink-0">
+        <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+    </button>
+</div>
                         </div>
                     </div>
 
@@ -742,6 +743,47 @@
             },
             "retina_detect": true
         });
+
+
+        // --- LOGIC KETIK PESAN MANUAL DI SIMULATOR ---
+function sendDemoMessage() {
+    const input = document.getElementById('demo-input');
+    const message = input.value.trim();
+    if (!message) return; // Jangan kirim kalau inputnya kosong
+
+    const container = document.getElementById('chat-container');
+    const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+    // 1. Buat balon chat untuk user (Warna hijau muda, rata kanan)
+    const userBubble = `
+    <div class="bg-[#d9fdd3] rounded-lg rounded-tr-none p-2 shadow-sm self-end max-w-[85%] text-sm text-slate-800 animate-bounce-short">
+        ${message}
+        <div class="text-[10px] text-slate-500 text-right mt-1">${time} <span class="text-blue-500">✓✓</span></div>
+    </div>`;
+
+    container.innerHTML += userBubble;
+    input.value = ''; // Kosongkan form input
+    container.scrollTop = container.scrollHeight; // Auto-scroll ke bawah
+
+    // 2. Balasan otomatis (Auto-Reply) dari sistem WABA setelah 1 detik
+    setTimeout(() => {
+        const botReply = `
+        <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800 animate-bounce-short border-l-4 border-slate-300">
+            Terima kasih! Namun maaf, ini hanya mode simulasi (Live Demo). Untuk mencoba API asli kami, silakan jadwalkan konsultasi dengan tim IntegriHub 😊
+            <div class="text-[10px] text-slate-400 text-right mt-1">${new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</div>
+        </div>`;
+        container.innerHTML += botReply;
+        container.scrollTop = container.scrollHeight;
+    }, 1000);
+}
+
+// Fungsi agar pesan terkirim saat menekan tombol "Enter" di keyboard
+function handleDemoKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendDemoMessage();
+    }
+}
+        
     </script>
 </body>
 </html>
