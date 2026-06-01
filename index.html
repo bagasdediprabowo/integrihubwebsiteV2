@@ -22,10 +22,13 @@
                         dark: '#0B1121',
                         darker: '#080C17',
                         primary: '#4F46E5',
-                        secondary: '#06B6D4'
+                        secondary: '#06B6D4',
+                        wa: '#25D366',
+                        wadark: '#075E54'
                     },
                     animation: {
                         'blob': 'blob 7s infinite',
+                        'bounce-short': 'bounce-short 0.5s ease-in-out 1'
                     },
                     keyframes: {
                         blob: {
@@ -33,6 +36,10 @@
                             '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
                             '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                             '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        'bounce-short': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
@@ -40,68 +47,37 @@
         }
     </script>
     <style>
-        /* Custom Glassmorphism */
         body { background-color: #0B1121; color: #F8FAFC; overflow-x: hidden; }
         
-        /* Tambahan: Styling Background Particles */
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -20; opacity: 0.4; pointer-events: none; }
 
-        .glass-nav {
-            background: rgba(11, 17, 33, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
-        }
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(79, 70, 229, 0.5);
-            box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.2);
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #818CF8, #06B6D4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
-        }
+        .glass-nav { background: rgba(11, 17, 33, 0.75); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s ease; }
+        .glass-card:hover { transform: translateY(-5px); border-color: rgba(79, 70, 229, 0.5); box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.2); background: rgba(255, 255, 255, 0.04); }
+        .gradient-text { background: linear-gradient(135deg, #818CF8, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-gradient-primary { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); }
         
-        /* Dynamic Page Transitions */
         .page-view { display: none; opacity: 0; transition: opacity 0.5s ease; }
         .page-view.active { display: block; opacity: 1; }
-
-        /* Mobile Menu */
-        #mobile-menu { display: none; }
-        #mobile-menu.active { display: block; }
         .nav-link.active-nav { color: #ffffff; font-weight: 600; border-bottom: 2px solid #4F46E5; }
 
-        /* SCROLL REVEAL ANIMATION */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* INFINITE MARQUEE */
         .marquee-container { overflow: hidden; white-space: nowrap; position: relative; width: 100%; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
         .marquee-content { display: inline-block; animation: scroll-left 25s linear infinite; }
         @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* FLOATING WA */
         .float-wa { position: fixed; bottom: 30px; right: 30px; z-index: 999; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); border-radius: 50%; transition: all 0.3s ease; }
         .float-wa:hover { transform: scale(1.1) rotate(-5deg); }
-        
-        /* FAQ Accordion */
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
 
-        /* Tambahan: Styling Kalkulator WABA */
         input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%; background: #06B6D4; cursor: pointer; margin-top: -10px; box-shadow: 0 0 15px rgba(6, 182, 212, 0.6); }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 5px; }
+
+        /* WABA Chat Background Pattern */
+        .wa-bg { background-color: #E5DDD5; background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='%23e5ddd5' fill-opacity='1'/%3E%3Cpath d='M2 2h2v2H2V2zm4 4h2v2H6V6zm4 4h2v2h-2v-2zm4 4h2v2h-2v-2z' fill='%23d3cac1' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E"); }
     </style>
 </head>
 
@@ -122,16 +98,14 @@
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <img src="https://cdn.phototourl.com/free/2026-05-29-ba47f0e1-1445-4320-93b6-ec5e92d666ed.png" alt="Logo IntegriHub" class="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(79,70,229,0.5)]" />
                     </div>
-                    <div>
-                        <h1 class="text-xl font-bold tracking-tight text-white">Integri<span class="text-secondary">Hub</span></h1>
-                    </div>
+                    <div><h1 class="text-xl font-bold tracking-tight text-white">Integri<span class="text-secondary">Hub</span></h1></div>
                 </div>
 
                 <nav class="hidden md:flex space-x-8 items-center h-full">
                     <button onclick="navigateTo('home')" class="nav-link active-nav h-full px-1 flex items-center text-sm font-medium text-slate-300 hover:text-white transition" data-target="home">Beranda</button>
                     <button onclick="navigateTo('about')" class="nav-link h-full px-1 flex items-center text-sm font-medium text-slate-300 hover:text-white transition" data-target="about">Tentang Kami</button>
                     <button onclick="navigateTo('contact')" class="nav-link h-full px-1 flex items-center text-sm font-medium text-slate-300 hover:text-white transition" data-target="contact">Kontak</button>
-                    <a href="docs.html" class="nav-link h-full px-1 flex items-center text-sm font-medium text-secondary hover:text-white transition">API Docs ↗</a>
+                    <button onclick="scrollToDemo()" class="h-full px-1 flex items-center text-sm font-medium text-secondary hover:text-white transition">Live Demo 📱</button>
                 </nav>
 
                 <div class="hidden md:flex">
@@ -151,8 +125,7 @@
                 <button onclick="navigateTo('home')" class="block w-full px-3 py-3 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Beranda</button>
                 <button onclick="navigateTo('about')" class="block w-full px-3 py-3 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Tentang Kami</button>
                 <button onclick="navigateTo('contact')" class="block w-full px-3 py-3 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Kontak</button>
-                <a href="docs.html" class="block w-full px-3 py-3 rounded-md text-base font-medium text-secondary hover:text-white hover:bg-white/5">API Docs ↗</a>
-                <button onclick="navigateTo('contact')" class="block mt-4 w-full bg-gradient-primary px-5 py-3 rounded-xl font-semibold text-white">Hubungi Kami</button>
+                <button onclick="scrollToDemo()" class="block w-full px-3 py-3 rounded-md text-base font-medium text-secondary hover:text-white hover:bg-white/5">Live Demo 📱</button>
             </div>
         </div>
     </header>
@@ -176,7 +149,7 @@
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                         <button onclick="navigateTo('contact')" class="w-full sm:w-auto bg-gradient-primary px-8 py-4 rounded-xl text-white font-semibold text-lg hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] transition-all hover:-translate-y-1">Mulai Integrasi WABA</button>
-                        <a href="docs.html" class="w-full sm:w-auto px-8 py-4 rounded-xl text-slate-300 font-semibold text-lg border border-white/10 glass-card transition-all text-center">Lihat Dokumentasi API</a>
+                        <button onclick="scrollToDemo()" class="w-full sm:w-auto px-8 py-4 rounded-xl text-slate-300 font-semibold text-lg border border-white/10 glass-card transition-all text-center hover:bg-white/5">Lihat Live Demo 📱</button>
                     </div>
                 </div>
 
@@ -211,9 +184,8 @@
                 <div class="glass-card rounded-3xl p-8 md:p-12 border-secondary/20 shadow-[0_0_50px_rgba(6,182,212,0.1)]">
                     <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold mb-4">Kalkulator Efisiensi <span class="text-secondary">WABA</span></h2>
-                        <p class="text-slate-400 text-sm">Hitung berapa banyak waktu operasional yang bisa Anda hemat dengan beralih dari WA Manual ke WA API Automasi.</p>
+                        <p class="text-slate-400 text-sm">Hitung waktu operasional yang bisa dihemat dengan beralih ke WABA IntegriHub.</p>
                     </div>
-                    
                     <div class="max-w-3xl mx-auto">
                         <div class="mb-8">
                             <div class="flex justify-between text-white font-medium mb-4">
@@ -222,21 +194,90 @@
                             </div>
                             <input type="range" id="msg-slider" min="500" max="100000" step="500" value="5000" oninput="calculateROI()">
                         </div>
-
                         <div class="grid md:grid-cols-2 gap-6 mt-10">
                             <div class="bg-red-500/10 border border-red-500/20 p-6 rounded-2xl text-center">
                                 <h4 class="text-red-400 font-semibold mb-2">WhatsApp Manual Biasa</h4>
                                 <div class="text-4xl font-bold text-white my-4" id="manual-time">166 Jam</div>
-                                <p class="text-xs text-slate-400">Waktu terbuang tim CS mengetik dan membalas manual. (Asumsi 2 menit/pesan)</p>
+                                <p class="text-xs text-slate-400">Waktu terbuang tim CS membalas manual. (Asumsi 2 mnt/pesan)</p>
                             </div>
                             <div class="bg-secondary/10 border border-secondary/30 p-6 rounded-2xl text-center relative overflow-hidden">
                                 <div class="absolute -right-4 -top-4 w-16 h-16 bg-secondary/30 blur-2xl"></div>
                                 <h4 class="text-secondary font-semibold mb-2">WABA IntegriHub</h4>
                                 <div class="text-4xl font-bold text-white my-4">0 Jam</div>
-                                <p class="text-xs text-slate-400">100% Berjalan Otomatis via API. Anti blokir, pengiriman instan. Tim bisa fokus berjualan.</p>
+                                <p class="text-xs text-slate-400">100% Otomatis via API. Anti blokir. Tim fokus berjualan.</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <section id="demo-section" class="py-20 reveal relative z-10 scroll-mt-24">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Live Demo <span class="gradient-text">WABA IntegriHub</span></h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Simulasikan bagaimana sistem Anda (Web/Aplikasi) mengirimkan notifikasi instan langsung ke WhatsApp pelanggan menggunakan API kami.</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row items-center gap-12 bg-darker/50 p-8 rounded-3xl border border-white/5">
+                    
+                    <div class="flex-1 w-full space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-6 border-b border-white/10 pb-2">Trigger Event Sistem:</h3>
+                        
+                        <button onclick="triggerWA('otp')" class="w-full bg-[#1e293b] border border-white/10 p-4 rounded-xl flex items-center justify-between hover:bg-primary/20 hover:border-primary/50 transition-all group">
+                            <div class="flex flex-col text-left">
+                                <span class="text-white font-semibold group-hover:text-primary transition">1. Kirim Kode OTP</span>
+                                <span class="text-xs text-slate-400 mt-1">Sistem deteksi user login baru.</span>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-500 group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+
+                        <button onclick="triggerWA('invoice')" class="w-full bg-[#1e293b] border border-white/10 p-4 rounded-xl flex items-center justify-between hover:bg-secondary/20 hover:border-secondary/50 transition-all group">
+                            <div class="flex flex-col text-left">
+                                <span class="text-white font-semibold group-hover:text-secondary transition">2. Notifikasi Tagihan (Invoice)</span>
+                                <span class="text-xs text-slate-400 mt-1">Sistem membuat tagihan otomatis.</span>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-500 group-hover:text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+
+                        <button onclick="triggerWA('promo')" class="w-full bg-[#1e293b] border border-white/10 p-4 rounded-xl flex items-center justify-between hover:bg-purple-500/20 hover:border-purple-500/50 transition-all group">
+                            <div class="flex flex-col text-left">
+                                <span class="text-white font-semibold group-hover:text-purple-400 transition">3. Broadcast Promo Menarik</span>
+                                <span class="text-xs text-slate-400 mt-1">Kirim promosi ke 10.000 database pelanggan.</span>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-500 group-hover:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                    </div>
+
+                    <div class="w-full max-w-[320px] mx-auto relative transform transition-transform duration-500 hover:scale-[1.02]">
+                        <div class="bg-black border-[8px] border-[#1f2937] rounded-[2.5rem] h-[600px] w-full overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative flex flex-col">
+                            <div class="absolute top-0 inset-x-0 h-6 bg-black rounded-b-3xl w-40 mx-auto z-20"></div>
+                            
+                            <div class="bg-wadark pt-10 pb-3 px-4 flex items-center gap-3 z-10 shadow-md">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden border border-white">
+                                    <img src="https://cdn.phototourl.com/free/2026-05-29-ba47f0e1-1445-4320-93b6-ec5e92d666ed.png" class="w-8 h-8 object-contain" alt="Logo">
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-white font-bold text-[15px] flex items-center gap-1">IntegriHub <svg class="w-3.5 h-3.5 text-[#25D366]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg></span>
+                                    <span class="text-green-200 text-xs">Official Business Account</span>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 wa-bg p-4 flex flex-col justify-end gap-3 pb-6" id="chat-container">
+                                <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800">
+                                    Selamat datang di simulator IntegriHub! Silakan klik tombol di sebelah kiri untuk melihat simulasi.
+                                    <div class="text-[10px] text-slate-400 text-right mt-1">10:00</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#F0F2F5] p-2 flex items-center gap-2 pb-6">
+                                <div class="bg-white flex-1 rounded-full h-10 px-4 flex items-center text-slate-400 text-sm">Ketik pesan...</div>
+                                <div class="w-10 h-10 rounded-full bg-wa flex items-center justify-center text-white shadow-sm">
+                                    <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -269,7 +310,6 @@
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Infrastruktur <span class="gradient-text">Tanpa Batas</span></h2>
                     <p class="text-slate-400">Dirancang khusus untuk skala enterprise namun ramah bagi UMKM.</p>
                 </div>
-
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
                         <div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
@@ -278,7 +318,7 @@
                                 <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                             </div>
                             <h3 class="text-xl font-bold mb-3 text-white">Open API & Webhooks</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Hubungkan sistem internal (Website, POS, ERP, OTP Login) dengan dokumentasi API kami yang rapi dan responsif.</p>
+                            <p class="text-slate-400 text-sm leading-relaxed">Hubungkan sistem internal (Website, POS, ERP, OTP) dengan API kami yang sangat responsif.</p>
                         </div>
                     </div>
                     <div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
@@ -288,7 +328,7 @@
                                 <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
                             </div>
                             <h3 class="text-xl font-bold mb-3 text-white">Broadcast Analytics</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Otomatisasi pengingat tagihan dan kampanye promosi massal dilengkapi laporan metrik yang mendalam.</p>
+                            <p class="text-slate-400 text-sm leading-relaxed">Otomatisasi pengingat tagihan dan kampanye promosi massal dilengkapi laporan metrik mendalam.</p>
                         </div>
                     </div>
                     <div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
@@ -298,7 +338,7 @@
                                 <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             </div>
                             <h3 class="text-xl font-bold mb-3 text-white">Aman (Centang Hijau)</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Hindari risiko blokir. Infrastruktur kami mematuhi regulasi ketat Meta dan mendukung verifikasi Official WABA.</p>
+                            <p class="text-slate-400 text-sm leading-relaxed">Hindari risiko blokir. Infrastruktur kami mematuhi regulasi ketat Meta dan mendukung verifikasi WABA.</p>
                         </div>
                     </div>
                 </div>
@@ -312,11 +352,11 @@
                     </div>
                     <div class="flex-1 py-4 md:py-0">
                         <div class="text-4xl md:text-5xl font-extrabold gradient-text mb-2">< 24j</div>
-                        <div class="text-slate-400 font-medium">Kecepatan Setup & Onboarding</div>
+                        <div class="text-slate-400 font-medium">Setup & Onboarding</div>
                     </div>
                     <div class="flex-1 py-4 md:py-0">
                         <div class="text-4xl md:text-5xl font-extrabold gradient-text mb-2">100%</div>
-                        <div class="text-slate-400 font-medium">Legal Partner BSP Meta</div>
+                        <div class="text-slate-400 font-medium">Meta Standard Compliant</div>
                     </div>
                 </div>
             </section>
@@ -373,8 +413,8 @@
                     </div>
                     <h3 class="text-2xl font-bold mb-4">Misi Kami</h3>
                     <ul class="text-slate-400 leading-relaxed space-y-3 font-light">
-                        <li class="flex gap-3"><span class="text-secondary font-bold">✓</span> Mengembangkan Dashboard SaaS CRM yang *user-friendly*.</li>
-                        <li class="flex gap-3"><span class="text-secondary font-bold">✓</span> Menghadirkan solusi otomasi *trigger-based* dari event server (pembayaran, OTP, tiket).</li>
+                        <li class="flex gap-3"><span class="text-secondary font-bold">✓</span> Mengembangkan Dashboard SaaS WABA yang *user-friendly*.</li>
+                        <li class="flex gap-3"><span class="text-secondary font-bold">✓</span> Menghadirkan solusi otomasi *trigger-based* dari event server.</li>
                         <li class="flex gap-3"><span class="text-secondary font-bold">✓</span> Layanan dukungan teknis VIP untuk setup & integrasi klien.</li>
                     </ul>
                 </div>
@@ -389,7 +429,7 @@
                             <span class="text-primary text-xl transition-transform duration-300 transform">+</span>
                         </div>
                         <div class="faq-content text-slate-400 text-sm font-light mt-0 opacity-0">
-                            <div class="pt-3">Tidak! Jika Anda UMKM/End-user, kami menyediakan Dashboard SaaS yang siap pakai untuk Broadcast & Auto-reply tanpa perlu *coding*. Untuk perusahaan dengan *existing system*, kami sediakan API lengkap.</div>
+                            <div class="pt-3">Tidak! Jika Anda UMKM/End-user, kami menyediakan Dashboard SaaS yang siap pakai untuk Broadcast & Auto-reply tanpa perlu *coding*. Untuk perusahaan dengan *existing system*, kami sediakan dokumentasi API.</div>
                         </div>
                     </div>
                     <div class="glass-card rounded-xl p-5 cursor-pointer hover:bg-white/5" onclick="toggleFaq(this)">
@@ -398,7 +438,7 @@
                             <span class="text-primary text-xl transition-transform duration-300 transform">+</span>
                         </div>
                         <div class="faq-content text-slate-400 text-sm font-light mt-0 opacity-0">
-                            <div class="pt-3">Sangat cepat! Jika dokumen legal bisnis Anda sudah lengkap (NIB/SIUP), verifikasi Meta dan koneksi API IntegriHub bisa diselesaikan dalam waktu kurang dari 24 jam kerja.</div>
+                            <div class="pt-3">Sangat cepat! Jika dokumen legal bisnis Anda sudah lengkap (NIB/SIUP), verifikasi Meta dan koneksi WABA IntegriHub bisa diselesaikan dalam waktu kurang dari 24 jam kerja.</div>
                         </div>
                     </div>
                     <div class="glass-card rounded-xl p-5 cursor-pointer hover:bg-white/5" onclick="toggleFaq(this)">
@@ -430,7 +470,7 @@
                             <div class="bg-darker/50 p-5 rounded-xl border border-white/5 hover:border-primary/50 transition">
                                 <div class="text-xl mb-2">💼</div>
                                 <h4 class="font-bold text-white text-sm">B2B Partnership</h4>
-                                <p class="text-xs text-slate-400 mt-1">Kerja sama enterprise, white-label, integrasi CRM/ERP skala besar.</p>
+                                <p class="text-xs text-slate-400 mt-1">Kerja sama enterprise, white-label, integrasi WABA skala besar.</p>
                             </div>
                             <div class="bg-darker/50 p-5 rounded-xl border border-white/5 hover:border-secondary/50 transition">
                                 <div class="text-xl mb-2">🛍️</div>
@@ -476,7 +516,7 @@
                                 <select id="wa-subject" class="w-full bg-[#0B1121] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition appearance-none">
                                     <option value="Demo Platform B2C">Minta Demo Platform SaaS</option>
                                     <option value="Pengajuan Kemitraan B2B">Diskusi Kemitraan B2B</option>
-                                    <option value="Dukungan Teknis">Konsultasi Teknis / API</option>
+                                    <option value="Dukungan Teknis">Konsultasi Integrasi WABA</option>
                                 </select>
                             </div>
                             <div>
@@ -501,8 +541,8 @@
             <div class="md:col-span-2">
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-8 h-8 flex items-center justify-center">
-            <img src="https://cdn.phototourl.com/free/2026-05-29-ba47f0e1-1445-4320-93b6-ec5e92d666ed.png" alt="Logo IntegriHub" class="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(79,70,229,0.3)]" />
-                </div>
+                        <img src="https://cdn.phototourl.com/free/2026-05-29-ba47f0e1-1445-4320-93b6-ec5e92d666ed.png" alt="Logo IntegriHub" class="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(79,70,229,0.3)]" />
+                    </div>
                     <h3 class="text-xl font-bold text-white">Integri<span class="text-secondary">Hub</span></h3>
                 </div>
                 <p class="text-sm text-slate-400 mb-6 leading-relaxed max-w-sm">Membangun ekosistem komunikasi digital yang terpusat, aman, dan otomatis untuk mendorong pertumbuhan bisnis di Indonesia.</p>
@@ -538,13 +578,9 @@
     </footer>
 
     <script>
-        // --- 1. SPA ROUTING LOGIC ---
+        // --- 1. SPA ROUTING & SCROLL LOGIC ---
         function navigateTo(pageId) {
-            const views = document.querySelectorAll('.page-view');
-            views.forEach(view => {
-                view.classList.remove('active');
-            });
-
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
             const targetView = document.getElementById('view-' + pageId);
             if(targetView) {
                 setTimeout(() => {
@@ -552,18 +588,25 @@
                     revealElements(); 
                 }, 50);
             }
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
+            document.querySelectorAll('.nav-link').forEach(link => {
                 if(link.getAttribute('data-target') === pageId) {
                     link.classList.add('active-nav');
                 } else {
                     link.classList.remove('active-nav');
                 }
             });
-
             document.getElementById('mobile-menu').classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToDemo() {
+            navigateTo('home');
+            setTimeout(() => {
+                const demoSection = document.getElementById('demo-section');
+                if (demoSection) {
+                    demoSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100); // Slight delay to ensure home view is active
         }
 
         // --- 2. SCROLL REVEAL ANIMATION ---
@@ -576,10 +619,7 @@
                     }
                 });
             }, { threshold: 0.1 });
-
-            reveals.forEach(reveal => {
-                observer.observe(reveal);
-            });
+            reveals.forEach(reveal => observer.observe(reveal));
         }
         window.addEventListener('load', revealElements);
 
@@ -595,17 +635,55 @@
             }
         });
 
-        // --- 4. FAQ ACCORDION TOGGLE ---
+        // --- 4. WABA SIMULATOR LOGIC (NEW) ---
+        function triggerWA(type) {
+            const container = document.getElementById('chat-container');
+            const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            let messageHTML = '';
+
+            if(type === 'otp') {
+                messageHTML = `
+                <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800 animate-bounce-short">
+                    <span class="font-bold">Kode OTP IntegriHub Anda</span><br>
+                    <span class="text-xl font-mono tracking-widest font-bold my-2 block">482910</span>
+                    Jangan berikan kode ini kepada siapapun.<br>
+                    <div class="text-[10px] text-slate-400 text-right mt-1">${time}</div>
+                </div>`;
+            } else if (type === 'invoice') {
+                messageHTML = `
+                <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800 animate-bounce-short border-l-4 border-secondary">
+                    <span class="font-bold">Tagihan Baru #INV-9021</span><br><br>
+                    Halo Pelanggan,<br>
+                    Tagihan layanan Anda bulan ini sebesar <span class="font-bold">Rp 150.000</span> telah terbit.<br><br>
+                    <button class="text-secondary font-bold w-full text-center mt-2 border-t pt-2 border-slate-100">Bayar Sekarang</button>
+                    <div class="text-[10px] text-slate-400 text-right mt-1">${time}</div>
+                </div>`;
+            } else if (type === 'promo') {
+                messageHTML = `
+                <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800 animate-bounce-short border-t-4 border-purple-500">
+                    🎉 <span class="font-bold text-purple-600">Promo Akhir Bulan!</span> 🎉<br><br>
+                    Dapatkan diskon 50% untuk setup WABA khusus hari ini. Gunakan kode: <b>WABA50</b>.<br>
+                    <button class="text-purple-600 font-bold w-full text-center mt-2 border-t pt-2 border-slate-100">Klaim Promo</button>
+                    <div class="text-[10px] text-slate-400 text-right mt-1">${time}</div>
+                </div>`;
+            }
+
+            // Append and scroll to bottom
+            container.innerHTML += messageHTML;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // --- 5. FAQ ACCORDION TOGGLE ---
         function toggleFaq(element) {
             const allContents = document.querySelectorAll('.faq-content');
-            const allIcons = document.querySelectorAll('.faq-content').forEach(el => {
+            document.querySelectorAll('.faq-content').forEach(el => {
                 if (el !== element.nextElementSibling) {
                     el.style.maxHeight = null;
                     el.style.opacity = '0';
                     el.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
                 }
             });
-
             const content = element.querySelector('.faq-content');
             const icon = element.querySelector('span:last-child');
             if (content.style.maxHeight) {
@@ -619,14 +697,12 @@
             }
         }
 
-        // --- 5. MOBILE MENU TOGGLE ---
-        const btn = document.getElementById('mobile-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('active');
+        // --- 6. MOBILE MENU TOGGLE ---
+        document.getElementById('mobile-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('active');
         });
 
-        // --- 6. WHATSAPP SEND LOGIC ---
+        // --- 7. WHATSAPP SEND LOGIC ---
         function sendToWhatsApp(event) {
             event.preventDefault();
             const name = document.getElementById("wa-name").value;
@@ -636,31 +712,28 @@
 
             const phone = "6285711164332"; 
             const text = `Halo Admin IntegriHub, saya *${name}* tertarik berdiskusi tentang *${subject}*:%0A%0A*Email:* ${email}%0A*Pesan Detail:* ${message}`;
-            
-            const url = `https://wa.me/${phone}?text=${text}`;
-            window.open(url, "_blank");
+            window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
         }
 
-        // --- 7. ROI CALCULATOR LOGIC ---
+        // --- 8. ROI CALCULATOR LOGIC ---
         function calculateROI() {
             const slider = document.getElementById('msg-slider');
             const messages = parseInt(slider.value);
-            
             document.getElementById('msg-val').innerText = messages.toLocaleString('id-ID') + " Pesan";
             const hoursWasted = Math.round((messages * 2) / 60);
             document.getElementById('manual-time').innerText = hoursWasted.toLocaleString('id-ID') + " Jam";
         }
 
-        // --- 8. PARTICLES.JS INIT ---
+        // --- 9. PARTICLES.JS INIT ---
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#4F46E5" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.5, "random": false },
                 "size": { "value": 3, "random": true },
                 "line_linked": { "enable": true, "distance": 150, "color": "#06B6D4", "opacity": 0.4, "width": 1 },
-                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
             },
             "interactivity": {
                 "detect_on": "window",
