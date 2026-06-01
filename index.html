@@ -262,7 +262,8 @@
                                 </div>
                             </div>
 
-                            <div class="flex-1 wa-bg p-4 flex flex-col justify-end gap-3 pb-6" id="chat-container">
+                            <!-- Body Chat (Sudah bisa di-scroll) -->
+                                <div class="flex-1 wa-bg p-4 flex flex-col gap-3 pb-6 overflow-y-auto scroll-smooth" id="chat-container">
                                 <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800">
                                     Selamat datang di simulator IntegriHub! Silakan klik tombol di sebelah kiri untuk melihat simulasi.
                                     <div class="text-[10px] text-slate-400 text-right mt-1">10:00</div>
@@ -745,38 +746,64 @@
         });
 
 
-        // --- LOGIC KETIK PESAN MANUAL DI SIMULATOR ---
+       // --- LOGIC KETIK PESAN MANUAL DI SIMULATOR (SMART BOT) ---
 function sendDemoMessage() {
     const input = document.getElementById('demo-input');
     const message = input.value.trim();
-    if (!message) return; // Jangan kirim kalau inputnya kosong
+    if (!message) return; 
 
     const container = document.getElementById('chat-container');
     const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
-    // 1. Buat balon chat untuk user (Warna hijau muda, rata kanan)
+    // 1. Tampilkan Chat User
     const userBubble = `
-    <div class="bg-[#d9fdd3] rounded-lg rounded-tr-none p-2 shadow-sm self-end max-w-[85%] text-sm text-slate-800 animate-bounce-short">
+    <div class="bg-[#d9fdd3] rounded-lg rounded-tr-none p-2 shadow-sm self-end max-w-[85%] text-sm text-slate-800 animate-bounce-short mt-auto">
         ${message}
         <div class="text-[10px] text-slate-500 text-right mt-1">${time} <span class="text-blue-500">✓✓</span></div>
     </div>`;
 
     container.innerHTML += userBubble;
-    input.value = ''; // Kosongkan form input
+    input.value = ''; 
     container.scrollTop = container.scrollHeight; // Auto-scroll ke bawah
 
-    // 2. Balasan otomatis (Auto-Reply) dari sistem WABA setelah 1 detik
+    // 2. "Otak" Bot: Deteksi Kata Kunci (Keyword Matching)
+    let botResponse = "";
+    const lowerMsg = message.toLowerCase();
+
+    if (lowerMsg.includes('halo') || lowerMsg.includes('hai') || lowerMsg.includes('hi') || lowerMsg.includes('pagi') || lowerMsg.includes('siang')) {
+        botResponse = "Halo! 👋 Saya adalah asisten virtual IntegriHub. Mau tanya seputar 'harga', 'fitur', atau 'cara daftar'?";
+    } 
+    else if (lowerMsg.includes('harga') || lowerMsg.includes('biaya') || lowerMsg.includes('tarif')) {
+        botResponse = "Untuk harga, IntegriHub sangat terjangkau! Mulai dari Rp 150.000/bulan untuk biaya server, dan tarif pesan (pay-as-you-go) mengikuti standar Meta yang transparan. 💸";
+    } 
+    else if (lowerMsg.includes('fitur') || lowerMsg.includes('bisa apa')) {
+        botResponse = "Fitur unggulan kami: <br>✅ Kirim OTP instan<br>✅ Broadcast notifikasi (Tagihan/Promo)<br>✅ Webhook real-time<br>✅ Dashboard analitik lengkap!";
+    } 
+    else if (lowerMsg.includes('api') || lowerMsg.includes('integrasi') || lowerMsg.includes('coding')) {
+        botResponse = "API kami berbasis REST yang sangat mudah dipahami. Bisa dihubungkan ke PHP, Node.js, Python, ataupun platform No-Code (Make/Zapier) dalam hitungan menit! 👨‍💻";
+    } 
+    else if (lowerMsg.includes('daftar') || lowerMsg.includes('join') || lowerMsg.includes('mulai')) {
+        botResponse = "Proses setup sangat cepat (< 24 jam) selama dokumen legalitas (NIB) lengkap. Silakan klik tombol 'Mulai Integrasi WABA' di website ini ya! 🚀";
+    } 
+    else if (lowerMsg.includes('blokir') || lowerMsg.includes('banned') || lowerMsg.includes('aman')) {
+        botResponse = "Tenang saja! Kami menggunakan Official WhatsApp API (resmi Meta), sehingga nomor Anda terjamin 100% dari pemblokiran (banned) selama mematuhi kebijakan Meta. 🛡️";
+    }
+    else {
+        // Balasan Default jika tidak ada kata kunci yang cocok
+        botResponse = "Pertanyaan yang bagus! Namun karena ini adalah versi Simulator, sistem saya dibatasi. Silakan diskusikan lebih lanjut dengan tim teknis kami ya. 😊";
+    }
+
+    // 3. Tampilkan Balasan Bot dengan jeda waktu (Seolah-olah sedang mengetik)
     setTimeout(() => {
         const botReply = `
-        <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800 animate-bounce-short border-l-4 border-slate-300">
-            Terima kasih! Namun maaf, ini hanya mode simulasi (Live Demo). Untuk mencoba API asli kami, silakan jadwalkan konsultasi dengan tim IntegriHub 😊
+        <div class="bg-white rounded-lg rounded-tl-none p-2 shadow-sm self-start max-w-[85%] text-sm text-slate-800 animate-bounce-short border-l-4 border-primary">
+            ${botResponse}
             <div class="text-[10px] text-slate-400 text-right mt-1">${new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</div>
         </div>`;
         container.innerHTML += botReply;
-        container.scrollTop = container.scrollHeight;
-    }, 1000);
+        container.scrollTop = container.scrollHeight; // Auto-scroll lagi setelah bot membalas
+    }, 1200); // Jeda 1.2 detik biar natural
 }
-
 // Fungsi agar pesan terkirim saat menekan tombol "Enter" di keyboard
 function handleDemoKeyPress(event) {
     if (event.key === 'Enter') {
